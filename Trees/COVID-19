@@ -1,0 +1,71 @@
+// Complete the CovidTree function below.
+// For your reference:
+/*
+struct node
+{
+    int value;
+    node *left;
+    node *right;
+};
+node *createNode(int value)
+ */
+ 
+ void fillmap(node* root, map<node*, node*> &m)
+ {
+    if(!root) return;
+    
+    if(root->left) m[root->left] = root;
+    if(root->right) m[root->right] = root;
+    
+    fillmap(root->left, m);
+    fillmap(root->right, m);
+ }
+ 
+ int count(node* root, map<node*, node*> m)
+ {
+   if(!root) return 0;
+   
+   queue<node*>q;
+   int count = -1;
+   q.push(root);
+   q.push(NULL);
+   
+   set<node*>seen;
+   while(!q.empty())
+   {
+     node* temp = q.front();
+     q.pop();
+     if(seen.count(temp)==0) seen.insert(temp);
+     
+     if(temp->left and !seen.count(temp->left)) q.push(temp->left);
+     if(temp->right and !seen.count(temp->right)) q.push(temp->right);
+     
+     if(m.count(temp))
+     {
+       node *parent = m[temp];
+       if(!seen.count(parent)) q.push(parent);
+     }
+     
+     if(q.front()==NULL)
+     {
+       q.pop();
+       count++;
+       if(!q.empty()) q.push(NULL);
+     }
+     
+   }
+   
+   return count;
+   
+ }
+ 
+int CovidTree(struct node *root, struct node *infectedNode)
+{
+    //Write your code here
+    map<node*, node*> m;
+    fillmap(root, m);
+    
+    int k = count(infectedNode, m);
+    return k;
+}
+
