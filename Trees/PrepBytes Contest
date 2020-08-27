@@ -1,0 +1,120 @@
+// Complete the function SecondMin() given below.
+// For your reference:
+/*
+struct node
+{
+    int value;
+    node *left;
+    node *right;
+};
+
+node *createNode(int value)
+*/
+int change_tree(node* &root, int &mini, int &smini)
+{
+  if(!root)
+      return -1;
+    int left = change_tree(root->left,mini,smini);
+    int right = change_tree(root->right,mini,smini);
+    if(left!=-1 && right!=-1)
+    {
+        root->value = min(root->value,min(left,right));
+        int z = root->value;
+        if(mini>z)
+        {
+          smini = mini;
+          mini = z;
+        }
+        
+        else if(smini>z and mini!=z)
+        {
+          smini = z;
+        }
+    }
+    else if(left!=-1)
+    {
+        root->value = min(root->value,left);
+        int z = root->value;
+        if(mini>z)
+        {
+          smini = mini;
+          mini = z;
+        }
+        
+        else if(smini>z and mini!=z)
+        {
+          smini = z;
+        }
+    }
+    else if(right!=-1)
+    {
+        root->value = min(root->value,right);
+        int z = root->value;
+        if(mini>z)
+        {
+          smini = mini;
+          mini = z;
+        }
+        
+        else if(smini>z and mini!=z)
+        {
+          smini = z;
+        }
+    }
+    
+    else
+    {
+        int z = root->value;
+        if(mini>z)
+        {
+          smini = mini;
+          mini = z;
+        }
+        
+        else if(smini>z and mini!=z)
+        {
+          smini = z;
+        }  
+    }
+    return root->value;
+}
+
+void print_level(node* root)
+{
+  if(!root) return;
+  
+  queue<node*> q;
+  q.push(root);
+  q.push(NULL);
+  
+  while(!q.empty())
+  {
+    node* temp = q.front();
+    q.pop();
+    cout<<temp->value<<" ";
+    if(temp->left) q.push(temp->left);
+    if(temp->right) q.push(temp->right);
+    
+    if(q.front() == NULL)
+    {
+      q.pop();
+      cout<<"$"<<" ";
+      if(!q.empty()) q.push(NULL);
+    }
+  }
+}
+
+void SecondMin(struct node *root)
+{
+    // write your code here
+    if(!root) return;
+    
+    int mini,smini;
+    mini=smini=INT_MAX;
+    
+    change_tree(root,mini,smini);
+    
+    if(smini==INT_MAX) smini = mini;
+    cout<<smini<<endl;
+    print_level(root);
+}
