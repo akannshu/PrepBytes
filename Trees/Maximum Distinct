@@ -1,0 +1,45 @@
+// Complete the findDistinctCount function below.
+/* For your reference:
+struct node
+{
+    long long value;
+    node *left;
+    node *right;
+};
+*/
+
+void helper(node* root, unordered_set<int>s, int &ans)
+{
+  if(!root) return;
+  
+  if(!root->left and !root->right)
+  {
+    s.insert(root->value);
+    int k = s.size();
+    ans = max(ans,k);
+  }
+  
+  if(root->left)
+  {
+    s.insert(root->value);
+    helper(root->left,s,ans);
+  }
+  
+  if(root->right)
+  {
+    s.insert(root->value);
+    helper(root->right,s,ans);
+  }
+}
+
+int findDistinctCount(node* root)
+{
+    //write your code here
+    if(!root) return 0;
+    unordered_set<int>s;
+    int ans = INT_MIN;
+    
+    helper(root,s,ans);
+    
+    return ans;
+}
