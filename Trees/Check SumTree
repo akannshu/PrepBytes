@@ -1,0 +1,32 @@
+// Complete the checkSumTree function below.
+/* For your reference:
+struct node
+{
+    long long value;
+    node *left;
+    node *right;
+};
+*/
+
+int find_sum(node* root)
+{
+  if(!root) return 0;
+  
+  return root->value + find_sum(root->left) + find_sum(root->right);
+}
+
+bool checkSumTree(node* root)
+{
+    //write your code here
+    if(!root) return true;
+    
+    if(!root->left and !root->right) return true;
+    
+    int x,y;
+    x=y=0;
+    
+    x = find_sum(root->left);
+    y = find_sum(root->right);
+    
+    return ((root->value == x+y) and checkSumTree(root->left) and checkSumTree(root->right));
+}
