@@ -1,0 +1,20 @@
+// Complete the calculateHeight function below.
+/* For your reference
+struct node
+{
+    long long value;
+    node *left;
+    node *right;
+};
+*/
+
+int calculateHeight(node* root)
+{
+    //write your code here
+    if(!root) return 0;
+    
+    int x = calculateHeight(root->left);
+    int y = calculateHeight(root->right);
+    
+    return 1+max(x,y);
+}
