@@ -1,0 +1,52 @@
+// Complete the findTurnCount function below.
+/* For your reference:
+struct node
+{
+    long long value;
+    node *left;
+    node *right;
+};
+*/
+
+void helper(node* root, char d, int count, int &res)
+{
+  if(!root) return;
+  
+  if(!root->left and !root->right) 
+  {
+    res = max(res,count);
+  }
+  
+  else
+  {
+    if(d=='l')
+    {
+      helper(root->left,d,count,res);
+      helper(root->right,'r',count+1,res);
+    }
+    
+    else
+    {
+      helper(root->left,'l',count+1,res);
+      helper(root->right,d,count,res);
+    }
+  }
+
+}
+
+int findTurnCount(node* node)
+{
+    //write your code here
+    if(!node) return 0;
+    
+    if(!node->left and !node->right) return 0;
+    
+    int res = INT_MIN;
+    
+    
+    helper(node->left,'l',0,res);
+    
+    helper(node->right,'r',0,res);
+    
+    return res;
+}
