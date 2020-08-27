@@ -1,0 +1,29 @@
+// Complete the calculateSize function below.
+/* For your reference:
+struct node
+{
+    long long value;
+    node *left;
+    node *right;
+};
+*/
+
+int calculateSize(node* root)
+{
+    //write your code here
+    if(!root) return 0;
+    int count=0;
+    queue<node*>q;
+    q.push(root);
+    
+    while(!q.empty())
+    {
+      node* temp = q.front();
+      q.pop();
+      count++;
+      if(temp->left) q.push(temp->left);
+      if(temp->right) q.push(temp->right);
+    }
+    
+    return count;
+}
