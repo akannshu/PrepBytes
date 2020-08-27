@@ -1,0 +1,23 @@
+// Complete the convertToSumTree function below.
+/* For your reference:
+struct node
+{
+    ll value;
+    node *left;
+    node *right;
+};
+*/
+
+int convertToSumTree(node *node)
+{
+    //write your code here
+    if(!node) return 0;
+    
+    int lr = convertToSumTree(node->left);
+    int rr = convertToSumTree(node->right);
+    
+    int y = node->value;
+    node->value = lr+rr;
+    
+    return y+node->value;
+}
