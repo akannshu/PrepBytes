@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  //write your code here
+  int t;
+  cin>>t;
+  
+  while(t--)
+  {
+    int n;
+    cin>>n;
+    
+    if(n&1) 
+    {
+      cout<<n<<" "<<n<<endl;
+      continue;
+    }
+    
+    int temp = n;
+    int num = 1;
+    
+    while(temp>0)
+    {
+      temp/=2;
+      num*=2;
+      if(temp&1) break;
+    }
+    
+    int k = max(0,temp-1);
+    int mini = num*k + 1;
+    int maxi = 2*n - mini;
+    
+    cout<<mini<<" "<<maxi<<endl;
+  }
+  return 0;
+}
