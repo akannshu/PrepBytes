@@ -1,0 +1,41 @@
+// Complete the function PlagiarismTest() given below.
+// For your reference:
+/*
+struct node
+{
+    int value;
+    node *left;
+    node *right;
+};
+
+node *createNode(int value)
+*/
+
+int PlagiarismTest(struct node *root, int x) {
+    //write your code here
+    
+    if(!root or root->value == x) return 0;
+    
+    int sum=0;
+    queue<node*>q;
+    q.push(root);
+    
+    while(!q.empty())
+    {
+      node* temp = q.front();
+      q.pop();
+      sum+=temp->value;
+      
+      if(temp->left) 
+      {
+        if(temp->left->value != x) q.push(temp->left);
+      }
+      if(temp->right)
+      {
+        if(temp->right->value != x) q.push(temp->right);
+      }
+      
+    }
+    
+    return sum;
+}
