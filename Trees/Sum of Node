@@ -1,0 +1,38 @@
+// Complete the function MaxSum() given below.
+// For your reference:
+/*
+struct node
+{
+    int value;
+    node *left;
+    node *right;
+};
+
+node *createNode(int value)
+*/
+int helper(node *root, int sum, int &ans)
+{
+  if(!root) return 0;
+  
+  int lr = 0;
+  
+  if(root->left) 
+    lr = helper(root->left,sum+root->left->value, ans);
+    
+  int rr = 0;
+  
+  if(root->right) 
+    rr = helper(root->right,sum+root->right->value, ans);
+    
+  int ms = lr+rr+sum;
+  ans = max(ans,ms);
+  
+  return root->value+max(lr,rr);
+}
+int MaxSum(node *root)
+{
+    // write your code here
+    int ans = INT_MIN;
+    helper(root,root->value,ans);
+    return ans;
+}
