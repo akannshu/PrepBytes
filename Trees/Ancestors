@@ -1,0 +1,30 @@
+// Complete the findLowestAncestor function below.
+/* For your reference:
+struct node
+{
+    long long value;
+    node *left;
+    node *right;
+};
+*/
+
+node* findLowestAncestor(node* root,int v1, int v2)
+{
+    //write your code here
+    if(!root) return NULL;
+    
+    queue<node*>q;
+    q.push(root);
+    
+    while(!q.empty())
+    {
+      node* temp = q.front();
+      q.pop();
+      
+      if(temp->value >= v1 and temp->value<v2) return temp;
+      else if(temp->value >= v2 and temp->value<v1) return temp;
+      
+      else if(temp->value>=v1 and temp->value>=v2) q.push(temp->left);
+      else q.push(temp->right);
+    }
+}
