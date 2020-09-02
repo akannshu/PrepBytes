@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  //write your code here
+  int t;
+  cin>>t;
+  
+  while(t--)
+  {
+    int n,money;
+    cin>>n>>money;
+    
+    priority_queue<int, vector<int>, greater<int>> pq;
+    
+    for(int i=0; i<n; i++)
+    {
+      int k;
+      cin>>k;
+      pq.push(k);
+    }
+    
+    int count = 0;
+    
+    while(money)
+    {
+      int k = pq.top();
+      if(money<k) break;
+      
+      money-=k;
+      count++;
+      pq.pop();
+    }
+    
+    cout<<count<<endl;
+  }
+  
+  return 0;
+}
