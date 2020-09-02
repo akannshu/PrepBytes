@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define pci pair<char,int>
+
+class comp
+{
+  public:
+
+  bool operator()(pci a, pci b)
+  {
+    return a.first > b.first;
+  }
+};
+
+
+int main()
+{
+  //write your code here
+  int t;
+  cin>>t;
+
+  while(t--)
+  {
+    string s;
+    int n;
+
+    cin>>s>>n;
+    
+    string ans="";
+    
+    int k = s.size();
+    
+    while(k--)
+    {
+      int temp = n-1;
+      
+      priority_queue<pci, vector<pci>, comp> pq;
+      
+      if(temp>s.size()-1) temp = s.size()-1;
+      
+      while(temp>-1 and (s.size()>0))
+      {
+        pq.push(make_pair(s[temp],temp));
+        temp--;
+
+      }
+      
+      auto p = pq.top();
+      ans+=p.first;
+      s.erase(s.begin()+p.second);
+    }
+
+    cout<<ans<<endl;
+
+  }
+  return 0;
+}
